@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcf8f9; /* Màu nền hồng cam sữa cực nhẹ */
+            color: #444;
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ĐỘC ĐÁO & PHÁ CÁCH: Nâng cấp kiểu dáng hình khối uốn lượn nghệ thuật cho khung ngoài */
+        .main-wrapper {
+            background-color: #fffafb; /* Nền của khung lớn (màu trắng hồng siêu nhẹ) */
+            
+            /* Tạo viền dải màu sắc (Gradient Border) vô cùng sáng tạo */
+            border: 4px solid transparent;
+            border-image: linear-gradient(135deg, #f4cfdf 0%, #f3d1dc 50%, #fce4ec 100%) 1;
+            
+            /* ĐỘC ĐÁO: Bo góc theo phong cách hình khối hữu cơ bất đối xứng (Organic Shape) đầy nghệ thuật */
+            border-radius: 40px 24px 50px 30px; 
+            
+            padding: 45px 40px; /* Tạo khoảng cách thông thoáng từ viền khung vào nội dung */
+            
+            /* ĐỘC ĐÁO: Đổ bóng hiệu ứng đa tầng giúp khung nổi bật và có chiều sâu cực cao */
+            box-shadow: 0 10px 20px rgba(209, 90, 123, 0.02),
+                        0 20px 40px rgba(209, 90, 123, 0.04),
+                        0 40px 70px rgba(209, 90, 123, 0.08),
+                        inset 0 0 30px rgba(243, 209, 220, 0.2); 
+                        
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1160px;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative; /* Định vị các chi tiết lấp lánh trang trí góc */
+            
+            /* ĐỘC ĐÁO & SÁNG TẠO: Thêm hiệu ứng dải hạt lấp lánh chuyển động ngầm vô cùng ảo diệu ở nền khung */
+            background-image: radial-gradient(circle at 20% 30%, rgba(252, 228, 236, 0.4) 1px, transparent 1px),
+                              radial-gradient(circle at 75% 60%, rgba(244, 207, 223, 0.4) 2px, transparent 2px),
+                              radial-gradient(circle at 40% 80%, rgba(209, 90, 123, 0.05) 3px, transparent 3px),
+                              linear-gradient(135deg, #fffafb 0%, #fff7f9 100%);
+            background-size: 100px 100px, 150px 150px, 200px 200px, 100% 100%;
+            animation: backgroundShimmer 20s linear infinite;
+            margin-bottom: 30px; /* Khoảng cách giữa khung bự và mục bên ngoài */
+        }
+
+        /* Hiệu ứng chuyển động nhẹ của các hạt lấp lánh ở nền */
+        @keyframes backgroundShimmer {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 100px 100px, 150px 150px, -200px 200px, 0 0; }
+        }
+
+        /* THÊM MỚI: Góc trang trí ngôi sao lấp lánh phía trên */
+        .main-wrapper::before {
+            content: "✨";
+            position: absolute;
+            top: -16px;
+            left: 25px;
+            font-size: 22px;
+            background-color: #fcf8f9;
+            padding: 0 8px;
+        }
+
+        /* THÊM MỚI: Góc trang trí ngôi sao lấp lánh phía dưới */
+        .main-wrapper::after {
+            content: "✨";
+            position: absolute;
+            bottom: -16px;
+            right: 25px;
+            font-size: 22px;
+            background-color: #fcf8f9;
+            padding: 0 8px;
+        }
+
+        /* TRANG TRÍ MỚI: Ruy băng nơ dễ thương ở góc phải khung bự */
+        .ribbon-decor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .ribbon-decor::before {
+            content: "OPEN 🌸";
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 130px;
+            background: linear-gradient(135deg, #ffb7ca, #d15a7b);
+            color: #fff;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 4px 0;
+        }
+
+        /* TRANG TRÍ MỚI: Icon lấp lánh bồng bềnh bên trong khung bự */
+        .sparkle-inner-left, .sparkle-inner-right {
+            position: absolute;
+            font-size: 20px;
+            top: 45px;
+            animation: floatSparkle 2.5s ease-in-out infinite;
+            user-select: none;
+        }
+        .sparkle-inner-left { left: 40px; animation-delay: 0.5s; }
+        .sparkle-inner-right { right: 120px; }
+
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+            50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+        }
+
+        /* SÁNG TẠO & ĐỘC ĐÁO: Đổi màu chữ tiêu đề thành Gradient ánh kim lấp lánh đổ bóng điệu nghệ */
+        h2 {
+            background: linear-gradient(135deg, #d15a7b 0%, #a63a56 50%, #d15a7b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; /* Giảm bớt khoảng cách dưới tiêu đề để cân đối với hotline */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            font-size: 26px;
+            animation: floatTitle 3s ease-in-out infinite;
+            filter: drop-shadow(2px 2px 3px rgba(209, 90, 123, 0.15));
+            z-index: 1;
+        }
+
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Khung thông tin liên hệ gồm SĐT và Giờ mở cửa nằm gọn gàng */
+        .shop-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        /* CSS cho số điện thoại hotline trong khung bự */
+        .shop-hotline {
+            font-size: 15px;
+            font-weight: 600;
+            color: #a63a56;
+            background: #fff0f3;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px dashed #f4cfdf;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* THÊM MỚI: CSS cho khung giờ mở cửa / đóng cửa đồng bộ phong cách hồng dễ thương */
+        .shop-time {
+            font-size: 13px;
+            font-weight: 600;
+            color: #d15a7b;
+            background: #fff5f7;
+            padding: 4px 14px;
+            border-radius: 15px;
+            border: 1px solid #fce4ec;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* CSS MỚI: Khung quà tặng dễ thương nằm dưới khung giờ */
+        .shop-gift {
+            font-size: 13px;
+            font-weight: 700;
+            color: #a63a56;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe4e8 100%);
+            padding: 5px 16px;
+            border-radius: 15px;
+            border: 1.5px solid #ffb7ca;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(209, 90, 123, 0.05);
+            letter-spacing: 0.5px;
+        }
+
+        /* Layout flex chứa các bảng nằm song song */
+        .tables-wrapper {
+            display: flex;
+            gap: 30px; /* Khoảng cách thoáng */
+            width: 100%;
+            max-width: 1100px; 
+            flex-wrap: wrap; 
+        }
+
+        .table-container {
+            flex: 1;
+            min-width: 320px; 
+            background-color: #fffcfd; /* Từ màu trắng #fff sang màu hồng sữa siêu nhạt */
+            border-radius: 16px; /* Bo tròn góc mềm mại hơn nữa */
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(209, 90, 123, 0.06); /* Đổ bóng mịn màng có tone hồng ẩn */
+            height: fit-content;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        /* TRANG TRÍ MỚI: Thêm một đường gạch highlight nhỏ dưới chân mỗi bảng cho điệu đà */
+        .table-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #fce4ec, #f4cfdf, #fce4ec);
+        }
+
+        /* SÁNG TẠO: Nâng cấp hiệu ứng hover mượt mà hơn cho container */
+        .table-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(209, 90, 123, 0.15), 0 0 15px rgba(244, 207, 223, 0.6);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 18px 24px; /* Cân đối lại khoảng cách hàng */
+            border-bottom: 1px solid #f5ecef;
+            transition: all 0.3s ease;
+        }
+
+        /* TRANG TRÍ MỚI: Tự động chèn các icon blink dễ thương trước tên sản phẩm mà không cần sửa HTML */
+        tbody tr td:first-child::before {
+            content: "⭐ ";
+            font-size: 12px;
+            margin-right: 5px;
+            color: #ffb7ca;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        /* Đổi icon ngẫu nhiên cho bảng thêm sinh động khi di chuột */
+        tbody tr:hover td:first-child::before {
+            content: "💖 ";
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        /* SÁNG TẠO: Thêm hiệu ứng Shimmer (Ánh kim nhẹ) cho tiêu đề bảng */
+        th {
+            background: linear-gradient(135deg, #fce4ec, #f4cfdf); 
+            color: #5a4b51;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        /* Cột giá bán căn lề phải */
+        th:last-child, td:last-child {
+            text-align: right;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Hiệu ứng dòng khi di chuột vào */
+        tr {
+            transition: background-color 0.3s ease;
+        }
+
+        /* SÁNG TẠO: Khi hover dòng, chữ đổi màu mịn và hàng hơi sáng lên */
+        tr:hover td {
+            background-color: #fff5f7; /* Màu hover hồng sữa nhẹ */
+            color: #111;
+        }
+
+        /* SÁNG TẠO: Giá tiền tự động nảy nhẹ (zoom) khi người dùng lướt qua dòng đó */
+        tr:hover .price {
+            transform: scale(1.1);
+            display: inline-block;
+        }
+
+        .price {
+            color: #d15a7b;
+            font-weight: 700; /* Làm đậm giá tiền hơn để làm điểm nhấn */
+            font-size: 15px;
+            transition: transform 0.2s ease;
+            transform-origin: right;
+            background: #fff0f3;
+            padding: 2px 8px;
+            border-radius: 20px; /* Bo tròn nhẹ phần khung giá tiền cho dễ thương */
+        }
+
+        /* CSS bổ sung để căn chỉnh riêng cho mục nằm ngoài khung */
+        .outside-container {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        /* THÊM MỚI: Khung nhập tên và số lượng múc bên ngoài khung bự */
+        .order-form-outside {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fffcfd;
+            border: 2px dashed #f4cfdf;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(209, 90, 123, 0.05);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+            margin-bottom: 20px; /* Khoảng cách xuống danh sách bên dưới */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #a63a56;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #f5ecef;
+            border-radius: 12px;
+            background-color: #fffafb;
+            color: #444;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #d15a7b;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(209, 90, 123, 0.15);
+        }
+
+        .form-group input::placeholder {
+            color: #bbb;
+        }
+
+        /* CSS BỔ SUNG: Nút bấm Xong xinh xắn đồng bộ giao diện */
+        .btn-submit-outside {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffb7ca 0%, #d15a7b 100%);
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(209, 90, 123, 0.2);
+            margin-top: 5px;
+        }
+
+        .btn-submit-outside:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(209, 90, 123, 0.35);
+            background: linear-gradient(135deg, #f4cfdf 0%, #a63a56 100%);
+        }
+
+        .btn-submit-outside:active {
+            transform: translateY(0);
+        }
+
+        /* CSS MỚI: Nút bấm xóa dành riêng cho TỪNG đơn hàng */
+        .btn-delete-outside {
+            width: auto;
+            padding: 6px 12px;
+            border: 1px solid #f4cfdf;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #d15a7b;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .btn-delete-outside:hover {
+            background: linear-gradient(135deg, #fff0f3 0%, #fce4ec 100%);
+            color: #a63a56;
+            border-color: #d15a7b;
+        }
+
+        /* CSS BỔ SUNG: Khung hiển thị danh sách đơn hàng đã nhận */
+        .order-list-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fffcfd;
+            border: 2px solid #f4cfdf;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(209, 90, 123, 0.05);
+            box-sizing: border-box;
+            display: none; /* Ban đầu ẩn đi, khi có đơn sẽ hiện lên */
+        }
+
+        .order-list-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #a63a56;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #f5ecef;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        .order-item {
+            background-color: #fff5f7;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            border-left: 4px solid #d15a7b;
+            animation: fadeInOrder 0.4s ease;
+        }
+
+        .order-item:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeInOrder {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="ribbon-decor"></div>
+        
+        <div class="sparkle-inner-left">🧸</div>
+        <div class="sparkle-inner-right">🎀</div>
+
+        <h2>✨ Bảng Tiệm Múc Charm T-Ngzan 🎀</h2>
+        
+        <div class="shop-info-container">
+            <div class="shop-hotline">📞 LIÊN HỆ SĐT: 0936162059</div>
+            <div class="shop-time">⏰ GIỜ MỞ CỬA: 08:00 — GIỜ ĐÓNG CỬA: 18:00</div>
+            <!-- Dòng quà tặng mới được chèn ở ngay dưới khung giờ mở/đóng cửa -->
+            <div class="shop-gift">🎁 MÚC CHARM ĐƯỢC TẶNG 1 MÓN</div>
+        </div>
+
+        <div class="tables-wrapper">
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá bán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dây lò xo buộc tóc</td>
+                            <td class="price">20k</td>
+                        </tr>
+                        <tr>
+                            <td>Lược chải tóc</td>
+                            <td class="price">10k</td>
+                        </tr>
+                        <tr>
+                            <td>Kẹp tóc</td>
+                            <td class="price">28k</td>
+                        </tr>
+                        <tr>
+                            <td>Gương mini</td>
+                            <td class="price">6k</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá bán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cuốn sổ</td>
+                            <td class="price">16k</td>
+                        </tr>
+                        <tr>
+                            <td>Vớ</td>
+                            <td class="price">9k</td>
+                        </tr>
+                        <tr>
+                            <td>Sticker</td>
+                            <td class="price">12k</td>
+                        </tr>
+                        <tr>
+                            <td>Đồ kẹp giấy</td>
+                            <td class="price">16k</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div> 
+    
+    <div class="order-form-outside">
+        <div class="form-group">
+            <label>📝 Tên khách hàng:</label>
+            <input type="text" id="customer-name" placeholder="Nhập tên của bạn nhé...">
+        </div>
+        <div class="form-group">
+            <label>📞 Số điện thoại:</label>
+            <input type="text" id="customer-phone" placeholder="Nhập số điện thoại...">
+        </div>
+        <div class="form-group">
+            <label>📍 Địa chỉ:</label>
+            <input type="text" id="customer-address" placeholder="Nhập địa chỉ giao hàng...">
+        </div>
+        <div class="form-group">
+            <label>🔮 Số lượng múc (muỗng):</label>
+            <input type="number" min="1" id="scoop-quantity" placeholder="Bạn muốn múc mấy muỗng...">
+        </div>
+        <button type="button" class="btn-submit-outside" onclick="guiDonHang()">💝 Xong Rồi nè ✨</button>
+    </div>
+
+    <div class="order-list-container" id="order-box">
+        <div class="order-list-title">🌸 Danh Sách Đơn Đã Nhận 🌸</div>
+        <div id="order-items-list"></div>
+    </div>
+
+    <script>
+        function guiDonHang() {
+            // Lấy dữ liệu từ các ô nhập liệu
+            var tenKhach = document.getElementById('customer-name').value.trim();
+            var soDienThoai = document.getElementById('customer-phone').value.trim();
+            var diaChi = document.getElementById('customer-address').value.trim();
+            var soLuong = document.getElementById('scoop-quantity').value;
+
+            // Kiểm tra xem khách hàng đã điền đủ thông tin chưa
+            if (tenKhach === "" || soDienThoai === "" || diaChi === "" || soLuong === "") {
+                alert("Bạn ơi, nhập đầy đủ Tên, Số điện thoại, Địa chỉ và Số lượng múc giúp shop nhé! 🎀");
+                return;
+            }
+
+            // Hiện khung chứa danh sách đơn hàng
+            var orderBox = document.getElementById('order-box');
+            orderBox.style.display = 'block';
+
+            // Tạo một mục đơn hàng mới dạng HTML có chứa nút Xóa riêng bên dưới thông tin khách
+            var orderList = document.getElementById('order-items-list');
+            var orderItemHtml = '<div class="order-item">' +
+                                '🧸 <b>Khách hàng:</b> ' + tenKhach + '<br>' +
+                                '📞 <b>Số điện thoại:</b> ' + soDienThoai + '<br>' +
+                                '📍 <b>Địa chỉ:</b> ' + diaChi + '<br>' +
+                                '🔮 <b>Số lượng múc:</b> ' + soLuong + ' muỗng<br>' +
+                                '<button type="button" class="btn-delete-outside" onclick="xoaDonNay(this)">🗑️ Xóa đơn vị khách này</button>' +
+                                '</div>';
+
+            // Chèn đơn hàng mới lên đầu danh sách
+            orderList.innerHTML = orderItemHtml + orderList.innerHTML;
+
+            // Hiển thị thông báo nhỏ thành công bằng alert cũ của bạn
+            alert("✨ Shop đã nhận được đơn hàng! Đơn đã hiển thị bên dưới nha! 🥰🎀");
+            
+            // Xóa trắng form để khách tiếp theo nhập hoặc múc tiếp gáo mới
+            document.getElementById('customer-name').value = "";
+            document.getElementById('customer-phone').value = "";
+            document.getElementById('customer-address').value = "";
+            document.getElementById('scoop-quantity').value = "";
+        }
+
+        function xoaDonNay(element) {
+            // Xác nhận trước khi xóa đơn của khách này
+            if (confirm("Bạn có muốn xóa đơn hàng của vị khách này không? 💕")) {
+                // Tìm đến khung thẻ div .order-item bao quanh nút vừa bấm và xóa nó đi
+                var item = element.parentElement;
+                item.remove();
+                
+                // Nếu sau khi xóa mà không còn đơn hàng nào nữa thì ẩn cả khung lớn đi
+                var orderList = document.getElementById('order-items-list');
+                if (orderList.innerHTML.trim() === "") {
+                    document.getElementById('order-box').style.display = 'none';
+                }
+            }
+        }
+    </script>
+    </body>
+    </html>
